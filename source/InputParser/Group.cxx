@@ -5,16 +5,33 @@
 
 #include "InputParser/Item.h"
 
+namespace
+{
+	std::string 
+	prefix(int n, std::string s)
+	{
+		std::string r;
+		while (n--)
+		{
+			r += s;
+		}
+		return r;
+	}
+}
+
 namespace InputParser
 {
-	Group::Group(std::string name, Group* parent) : name(name), parent(parent)
+	Group::Group(std::string name, Group* parent, int level) : name(name), parent(parent), level(level)
 	{
 
 	}
 
 	Group::~Group()
 	{
-
+		for (auto i = children.begin(); i != children.end(); i++)
+		{
+			delete (*i);
+		}
 	}
 
 	void 
@@ -48,6 +65,11 @@ namespace InputParser
 		return nullptr;
 	}
 
+	int Group::getLevel()
+	{
+		return level;
+	}
+
 	std::string 
 	Group::getName()
 	{
@@ -57,14 +79,17 @@ namespace InputParser
 	void 
 	Group::write(std::string indent)
 	{
-		std::cout << indent << getName() << " {\n";
+		std::string p;
+		if (level > 0) p = indent + "  ";
+		
+		if (level > 0) std::cout << indent << getName() << " {\n";
 
 		if (children.size() != 0)
 		{
 
 			for (auto i = children.begin(); i != children.end(); i++)
 			{
-				(*i)->write(indent + "\t");
+				(*i)->write(p);
 			}
 
 		}
@@ -72,7 +97,8 @@ namespace InputParser
 		{
 			std::cout << "Children empty!!!\n";
 		}
-		std::cout << indent << "}\n";
+
+		if (level > 0) std::cout << indent << "}\n";
 	}
 
 	std::string 
@@ -80,4 +106,5 @@ namespace InputParser
 	{
 		return parent_path + name + "/";
 	}
+
 } // namespace InputParser

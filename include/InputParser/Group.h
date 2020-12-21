@@ -14,18 +14,20 @@ namespace InputParser
 		std::string name;
 		Group* parent;
 		std::vector<Item*> children;
+		int level;
 	protected:
 	public:
 		Group() = delete;
-		Group(std::string name, Group* parent = nullptr);
+		Group(std::string name, Group* parent = nullptr, int level = 0);
 		~Group();
 
 		void addItem(Item* item);
 		Group* getParent();
 		Item* getChild(int idx);
 		Item* getChild(std::string name);
+		int getLevel();
 		std::string getName();
-		void write(std::string indent = "") override;
+		void write(std::string indent = " ") override;
 		std::string getPath(std::string parent_path = "/");
 	}; // class Group
 

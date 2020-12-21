@@ -36,7 +36,7 @@ namespace InputParser
 		Item() = default;
 		virtual ~Item() = 0;
 		virtual std::string getName() = 0;
-		virtual void write(std::string indent = "") = 0;
+		virtual void write(std::string indent = " ") = 0;
 
 	}; // class Item
 

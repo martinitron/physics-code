@@ -19,7 +19,7 @@ namespace InputParser
 		~Variable() = default;
 
 		void 
-		write(std::string indent = "") override
+		write(std::string indent = " ") override
 		{
 			std::cout << indent << kw << "=" << d << line_end << "\n";
 		}

@@ -60,7 +60,7 @@ namespace InputParser
 		else if (std::regex_search(line, rm, re_group_open))
 		{
 			//std::cout << "Group started.\nGroup name: " << rm[1].str() << "\n";
-			Group* temp = new Group(rm[1].str(), cur_state);
+			Group* temp = new Group(rm[1].str(), cur_state, cur_state->getLevel() + 1);
 			cur_state->addItem(temp);
 			cur_state = temp;
 			//cur_state->write();
