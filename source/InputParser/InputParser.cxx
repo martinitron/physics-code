@@ -33,41 +33,43 @@ namespace InputParser
 	{
 		std::smatch rm;
 
-		if (cur_state == nullptr)
+		if (head_state == nullptr)
 		{
-			cur_state = new Group("");
-			head_state = cur_state;
+			head_state = new Group("");
+			cur_state = head_state;
 		}
 
 		if (std::regex_search(line, rm, re_integer_assignment))
 		{
-			std::cout << "Integer found.\n";
+			//std::cout << "Integer found.\n";
 			Variable<int>* temp = new Variable( rm[1], stoi(rm[2].str()) );
 			cur_state->addItem(temp);
 		}
 		else if (std::regex_search(line, rm, re_real_assignment))
 		{
-			std::cout << "Real found.\n";
+			//std::cout << "Real found.\n";
 			Variable<float>* temp = new Variable(rm[1], stof(rm[2].str()));
 			cur_state->addItem(temp);
 		}
 		else if (std::regex_search(line, rm, re_string_assignment))
 		{
-			std::cout << "String found.\n";
+			//std::cout << "String found.\n";
 			Variable<std::string>* temp = new Variable(rm[1], rm[2].str());
 			cur_state->addItem(temp);
 		}
 		else if (std::regex_search(line, rm, re_group_open))
 		{
-			std::cout << "Group started.\nGroup name: " << rm[1].str() << "\n";
+			//std::cout << "Group started.\nGroup name: " << rm[1].str() << "\n";
 			Group* temp = new Group(rm[1].str(), cur_state);
 			cur_state->addItem(temp);
 			cur_state = temp;
+			//cur_state->write();
 		}
 		else if (std::regex_search(line, rm, re_group_close))
 		{
-			std::cout << "Group finished.\n";
+			//std::cout << "Group finished.\n";
 			cur_state = cur_state->getParent();
+			//cur_state->write();
 		}
 	}
 
@@ -85,7 +87,7 @@ namespace InputParser
 				parseLine(line);
 			}
 			fh.close();
-			cur_state->write();
+			head_state->write();
 		}
 		else
 		{

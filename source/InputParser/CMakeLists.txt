@@ -1,4 +1,4 @@
-add_library(Parser SHARED
+add_library(Parser STATIC
  "InputParser.cxx"
  "Variable.cxx"
  "Group.cxx"

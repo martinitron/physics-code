@@ -55,16 +55,24 @@ namespace InputParser
 	}
 
 	void 
-	Group::write() 
+	Group::write(std::string indent)
 	{
-		std::cout << getName() << "{\n";
+		std::cout << indent << getName() << " {\n";
 
-		for (std::vector<Item*>::iterator i = children.begin(); i == children.end(); i++)
+		if (children.size() != 0)
 		{
-			(*i)->write();
-		}
 
-		std::cout << "}\n";
+			for (auto i = children.begin(); i != children.end(); i++)
+			{
+				(*i)->write(indent + "\t");
+			}
+
+		}
+		else
+		{
+			std::cout << "Children empty!!!\n";
+		}
+		std::cout << indent << "}\n";
 	}
 
 	std::string 

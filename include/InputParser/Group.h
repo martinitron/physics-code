@@ -25,7 +25,7 @@ namespace InputParser
 		Item* getChild(int idx);
 		Item* getChild(std::string name);
 		std::string getName();
-		void write();
+		void write(std::string indent = "") override;
 		std::string getPath(std::string parent_path = "/");
 	}; // class Group
 
