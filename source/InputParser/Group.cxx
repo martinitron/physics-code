@@ -79,8 +79,8 @@ namespace InputParser
 	void 
 	Group::write(std::string indent)
 	{
-		std::string p;
-		if (level > 0) p = indent + "  ";
+		std::string p = "";
+		if (level > 0) p = indent + "    ";
 		
 		if (level > 0) std::cout << indent << getName() << " {\n";
 
