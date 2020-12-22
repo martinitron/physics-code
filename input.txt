@@ -15,4 +15,6 @@ physics_bin {
 		another_switch=TruE;
 		switches =[T,T,T,F,F,F];
 	}
+	title="My New Input File";
 }
+title="My New Input File";

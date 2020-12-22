@@ -8,7 +8,7 @@ namespace InputParser
 	std::string keyword("[a-zA-Z_][a-zA-Z_0-9]+");
 	std::string integer("[0-9]+");
 	std::string real("[0-9]+\\.[0-9]*[f]?");
-	std::string string("\"[a-zA-Z_0-9.]+\"");
+	std::string string("\"[a-zA-Z_0-9. ]+\"");
 	std::string boolean("([Tt]([Rr][Uu][Ee])?|[Ff]([Aa][Ll][Ss][Ee])?)");
 	
 	std::string line_end(";");
