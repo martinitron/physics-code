@@ -13,8 +13,18 @@ main(int argc, char** argv)
 	ip.readFile("C:\\Users\\kateb\\MartinBlick\\Source\\Repos\\physics-code\\input.txt");
 
 	Meshes::Meshes m;
-	Meshes::GridPoints gp(100, Meshes::dimension::D2);
-	Meshes::GridPoints::Iterator i;
+	Meshes::GridPoints gp(10, Meshes::dimension::D3);
+	//Meshes::GridPoints::Iterator i;
+
+	for (Meshes::Grid::iterator i = gp.begin(); i != gp.end(); i++)
+	{
+		std::cout << "New Point!\n";
+		for (Meshes::GridPoint::iterator j = i->begin(); j != i->end(); j++)
+		{
+			std::cout << "    " << *j << "\n";
+		}
+		std::cout << "\n";
+	}
 
 	return 0;
 }

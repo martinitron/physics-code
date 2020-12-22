@@ -1,11 +1,16 @@
 #ifndef MESHES_GRID_POINTS_H
 #define MESHES_GRID_POINTS_H
 
+#include <vector>
+
+/*
+TODO: maybe look into making this not use vector - lighter weight?
+*/
 namespace Meshes
 {
 
-	enum class dimension{ D1, D2, D3 };
-
+	enum class dimension{ DNONE, D1, D2, D3 };
+/*
 	class GridPoints
 	{
 	private:
@@ -21,13 +26,39 @@ namespace Meshes
 		class Iterator
 		{
 		private:
+			float* ptr_ = nullptr;
+			size_t sc_ = 0;
 		protected:
 		public:
-			Iterator() {}
+			Iterator(float* p_start, size_t scale) : ptr_(p_start), sc_(scale) {}
 			~Iterator() {}
+			float operator* () const
+			{
+				return *ptr_;
+			}
+
+			Iterator& operator++()
+			{
+				ptr_ += sc_;
+				return *this;
+			}
+
+			Iterator& operator--()
+			{
+				ptr_ -= sc_;
+				return *this;
+			}
+
+			float* operator->() 
+			{
+				return ptr_;
+			}
 		};
+
+		Iterator begin() { return Iterator(&p_[0], s_); }
+		Iterator end() { return Iterator(&p_[l_], s_); }
 	};
-/*
+
 	class GridPoints1D : public GridPoints
 	{
 	private:
@@ -60,6 +91,27 @@ namespace Meshes
 		~GridPoints3D();
 	};
 */
+
+	typedef std::vector< std::vector<float> > Grid;
+	typedef std::vector<float> GridPoint;
+
+	class GridPoints
+	{
+	private:
+		Grid gp_;
+		size_t s_ = 0;
+		size_t l_ = 0;
+		dimension d_ = dimension::DNONE;
+
+	protected:
+	public:
+		
+		GridPoints(int np, dimension d);
+		~GridPoints();
+
+		Grid::iterator begin();
+		Grid::iterator end();
+	};
 } // namespace Meshes
 
 #endif
